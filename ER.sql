@@ -124,6 +124,8 @@ SELECT patient_admin_flag, COUNT(*) AS admin_flag_count
 FROM hospital_er.er_raw
 GROUP BY patient_admin_flag;
 
+-- trend over time
+
 -- daily 
 SELECT
     DATE(date) AS visit_date,
@@ -159,14 +161,33 @@ ORDER BY visit_year, visit_month
 
 
 
+SELECT patient_age, avg(patient_sat_score) AS avg_sat_score
+FROM hospital_er.er_raw
+GROUP BY patient_age;
+
+SELECT patient_age, avg(patient_sat_score) AS avg_sat_score, Avg(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+GROUP BY patient_age;
+
+SELECT patient_age, avg(patient_sat_score) AS avg_sat_score
+FROM hospital_er.er_raw
+WHERE patient_age = 63;
+
+SELECT patient_age, avg(patient_sat_score) AS avg_sat_score, Avg(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+WHERE patient_age = 63;
+
+SELECT patient_age, avg(patient_sat_score) AS avg_sat_score, Avg(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+WHERE patient_age >= 60
+GROUP BY patient_age;
 
 
+SELECT patient_waittime, patient_sat_score
+FROM hospital_er.er_raw;
 
-
-
-
-
-
-
-
+SELECT department_referral, AVG(patient_waittime) AS avg_wait_time, AVG(patient_sat_score) AS avg_sat_score
+from hospital_er.er_raw
+GROUP BY department_referral
+ORDER BY avg_wait_time;
 
