@@ -58,4 +58,115 @@ ALTER TABLE hospital_er.er_raw
 Modify column department_referral VARCHAR(50);
 
 
+-- data exploration
+
+-- paient age calculations
+
+-- avg age
+SELECT FORMAT(AVG(patient_age),2) AS avg_age
+FROM hospital_er.er_raw;
+
+-- max age
+SELECT MAX(patient_age) AS max_age
+FROM hospital_er.er_raw;
+
+-- min age
+SELECT MIN(patient_age) AS min_age
+FROM hospital_er.er_raw;
+
+
+-- satisfaction score cal.
+
+-- avg
+SELECT FORMAT(AVG(patient_sat_score),2) AS avg_score
+FROM hospital_er.er_raw;
+
+-- max
+SELECT MAX(patient_sat_score) AS max_score
+FROM hospital_er.er_raw;
+
+-- min
+SELECT MIN(patient_sat_score) AS min_score
+FROM hospital_er.er_raw;
+
+
+-- wait time cal.
+
+-- avg
+SELECT FORMAT(AVG(patient_waittime),2) AS avg_waittime
+FROM hospital_er.er_raw;
+
+-- max
+SELECT Max(patient_waittime) AS min_waittime
+FROM hospital_er.er_raw;
+
+-- min
+SELECT MIN(patient_waittime) AS min_waittime
+FROM hospital_er.er_raw;
+
+
+
+-- disterbution count
+
+-- gender
+SELECT patient_gender, COUNT(*) AS gender_count
+FROM hospital_er.er_raw
+GROUP BY patient_gender;
+
+
+-- race
+SELECT patient_race, COUNT(*) AS race_count
+FROM hospital_er.er_raw
+GROUP BY patient_race;
+
+-- flag
+SELECT patient_admin_flag, COUNT(*) AS admin_flag_count
+FROM hospital_er.er_raw
+GROUP BY patient_admin_flag;
+
+-- daily 
+SELECT
+    DATE(date) AS visit_date,
+    COUNT(*) AS daily_er_visits,
+    AVG(patient_sat_score) AS avg_sat_score,
+    AVG(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+GROUP BY DATE(date)
+ORDER BY visit_date;
+
+
+-- weekly
+SELECT 
+    YEAR(date) AS visit_year, 
+    WEEK(date) AS visit_week, 
+    COUNT(*) AS weekly_er_visits,
+    AVG(patient_sat_score) AS avg_sat_score,
+    AVG(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+GROUP BY YEAR(date), WEEK(date)
+ORDER BY visit_year, visit_week;
+
+-- monthly
+SELECT 
+    YEAR(date) AS visit_year, 
+    MONTH(date) AS visit_month, 
+    COUNT(*) AS monthly_er_visits,
+    AVG(patient_sat_score) AS avg_sat_score,
+    AVG(patient_waittime) AS avg_wait_time
+FROM hospital_er.er_raw
+GROUP BY YEAR(date), MONTH(date)
+ORDER BY visit_year, visit_month
+
+
+
+
+
+
+
+
+
+
+
+
+
 
